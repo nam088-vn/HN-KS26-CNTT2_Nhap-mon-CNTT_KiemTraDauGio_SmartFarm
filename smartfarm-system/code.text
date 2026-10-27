@@ -1,0 +1,15 @@
+ Chức năng 1:
+   mkdir -p smartfarm-system/{docs,scripts,data,backup}
+ cd smartfarm-system/data
+ echo "DB_PASSWORD=demo_123456" > ../.env
+ Chức năng 2: 
+ report_file="../backup/bao-cao-su-co.txt"
+ log_file="../data/log-he-thong.log"
+echo "========================================" > "$report_file"
+echo "  BAO CAO SU CO - SMARTFARM" >> "$report_file"
+echo "  Ngay gio: $(date '+%d/%m/%Y %H:%M')" >> "$report_file"
+echo "========================================" >> "$report_file"
+grep -E "CRITICAL|ERROR" "$log_file" >> "$report_file"
+echo "----------------------------------------" >> "$report_file"
+echo "TONG SO SU CO:" >> "$report_file"
+grep -E "CRITICAL|ERROR" "$log_file" | wc -l | tr -d ' ' >> "$report_file"
